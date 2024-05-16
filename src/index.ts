@@ -221,7 +221,7 @@ export default async (options: SvgToFontOptions = {}) => {
     ...options.config,
   });
   options = merge(defaultOptions, data);
-  const pkgPath = path.join(process.cwd(), 'package.json');
+  const pkgPath = path.join(__dirname, 'package.json');
   if (fs.pathExistsSync(pkgPath)) {
     const pkg = require(pkgPath);
     if (pkg.svgtofont) {
@@ -231,7 +231,7 @@ export default async (options: SvgToFontOptions = {}) => {
         options.css = merge(cssOptions, pkg.svgtofont.css);
       }
     }
-    if (options.website && pkg.version) {
+    if (options.website && !options.website.version &&  pkg.version) {
       options.website.version = pkg.version;
     }
   }
